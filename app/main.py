@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.database import init_db
-from app.routers import analyze, users
+from app.routers import analyze, users, export
 from app.config import get_settings
 
 settings = get_settings()
@@ -36,6 +36,7 @@ app.add_middleware(
 # 라우터 등록
 app.include_router(users.router)
 app.include_router(analyze.router)
+app.include_router(export.router, prefix="/api/v1")
 
 
 @app.get("/", tags=["health"])
